@@ -85,11 +85,11 @@ func (c *Client) Dial(network, addr string) (net.Conn, error) {
 			h = net.IPv6zero
 		}
 		p = []byte{0x00, 0x00}
-		rp, err := c.Request(NewRequest(CmdUDP, a, h, p))
+		_, err = c.Request(NewRequest(CmdUDP, a, h, p))
 		if err != nil {
 			return nil, err
 		}
-		tmp, err := Dial.Dial("udp", rp.Address())
+		tmp, err := Dial.Dial("udp", c.Server)
 		if err != nil {
 			return nil, err
 		}
